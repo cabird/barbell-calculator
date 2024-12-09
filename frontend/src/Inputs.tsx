@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 interface InputsProps {
   targetWeight: number;
@@ -23,22 +25,12 @@ const Inputs: React.FC<InputsProps> = ({
 }) => {
   const roundToNearestFive = (value: number) => Math.round(value / 5) * 5;
 
-  const handleNumericChange = (
-    value: string,
-    setter: (value: number) => void
-  ) => {
-    const numericValue = parseFloat(value);
-    if (!isNaN(numericValue)) {
-      setter(roundToNearestFive(numericValue));
-    }
-  };
-
   const handleIncrement = (setter: (value: number) => void, value: number) => {
-    setter(value + 5);
+    setter(roundToNearestFive(value + 5));
   };
 
   const handleDecrement = (setter: (value: number) => void, value: number) => {
-    setter(Math.max(0, value - 5)); // Prevent negative values
+    setter(Math.max(0, roundToNearestFive(value - 5))); // Prevent negative values
   };
 
   return (
@@ -46,36 +38,36 @@ const Inputs: React.FC<InputsProps> = ({
       <div>
         <label>Target Weight (lbs):</label>
         <div className="input-group">
-          <button onClick={() => handleDecrement(setTargetWeight, targetWeight)}>
-            -
+          <button
+            onClick={() => handleDecrement(setTargetWeight, targetWeight)}
+            aria-label="Decrease Target Weight"
+          >
+            <FontAwesomeIcon icon={faMinus} />
           </button>
-          <input
-            type="number"
-            value={targetWeight}
-            onChange={(e) =>
-              handleNumericChange(e.target.value, setTargetWeight)
-            }
-          />
-          <button onClick={() => handleIncrement(setTargetWeight, targetWeight)}>
-            +
+          <span className="weight-display">{targetWeight} lbs</span>
+          <button
+            onClick={() => handleIncrement(setTargetWeight, targetWeight)}
+            aria-label="Increase Target Weight"
+          >
+            <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>
       </div>
       <div>
         <label>Fixed Weight on Each Side (lbs):</label>
         <div className="input-group">
-          <button onClick={() => handleDecrement(setFixedWeight, fixedWeight)}>
-            -
+          <button
+            onClick={() => handleDecrement(setFixedWeight, fixedWeight)}
+            aria-label="Decrease Fixed Weight"
+          >
+            <FontAwesomeIcon icon={faMinus} />
           </button>
-          <input
-            type="number"
-            value={fixedWeight}
-            onChange={(e) =>
-              handleNumericChange(e.target.value, setFixedWeight)
-            }
-          />
-          <button onClick={() => handleIncrement(setFixedWeight, fixedWeight)}>
-            +
+          <span className="weight-display">{fixedWeight} lbs</span>
+          <button
+            onClick={() => handleIncrement(setFixedWeight, fixedWeight)}
+            aria-label="Increase Fixed Weight"
+          >
+            <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>
       </div>
@@ -88,7 +80,7 @@ const Inputs: React.FC<InputsProps> = ({
           value={warmupSets}
           onChange={(e) => setWarmupSets(Number(e.target.value))}
         />
-        <span>{warmupSets}</span>
+        <span className="weight-display">{warmupSets}</span>
       </div>
       <div>
         <label>First Warmup Set Weight (lbs):</label>
@@ -97,22 +89,18 @@ const Inputs: React.FC<InputsProps> = ({
             onClick={() =>
               handleDecrement(setFirstWarmupWeight, firstWarmupWeight)
             }
+            aria-label="Decrease First Warmup Set Weight"
           >
-            -
+            <FontAwesomeIcon icon={faMinus} />
           </button>
-          <input
-            type="number"
-            value={firstWarmupWeight}
-            onChange={(e) =>
-              handleNumericChange(e.target.value, setFirstWarmupWeight)
-            }
-          />
+          <span className="weight-display">{firstWarmupWeight} lbs</span>
           <button
             onClick={() =>
               handleIncrement(setFirstWarmupWeight, firstWarmupWeight)
             }
+            aria-label="Increase First Warmup Set Weight"
           >
-            +
+            <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>
       </div>

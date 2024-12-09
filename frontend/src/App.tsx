@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Inputs from "./Inputs";
 import Results from "./Results";
 import "./App.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const App: React.FC = () => {
   const [targetWeight, setTargetWeight] = useState<number>(() => {
@@ -18,8 +20,16 @@ const App: React.FC = () => {
   });
   const [firstWarmupWeight, setFirstWarmupWeight] = useState<number>(() => {
     const saved = localStorage.getItem("firstWarmupWeight");
-    return saved ? parseFloat(saved) : 95; // Default warmup start
+    return saved ? parseFloat(saved) : 65;
   });
+
+  const resetInputs = () => {
+    setTargetWeight(135);
+    setFixedWeight(10);
+    setWarmupSets(3);
+    setFirstWarmupWeight(65);
+    localStorage.clear();
+  };
 
   useEffect(() => {
     localStorage.setItem("targetWeight", targetWeight.toString());
@@ -47,6 +57,9 @@ const App: React.FC = () => {
         warmupSets={warmupSets}
         firstWarmupWeight={firstWarmupWeight}
       />
+      <button className="reset-button" onClick={resetInputs}>
+        <FontAwesomeIcon icon={faTrash} /> Reset
+      </button>
     </div>
   );
 };
