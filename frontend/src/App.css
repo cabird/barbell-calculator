@@ -1,0 +1,86 @@
+.app {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.inputs,
+.results,
+.diagram {
+  margin-bottom: 20px;
+}
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.bar-center {
+  text-align: center;
+  font-weight: bold;
+}
+
+.weight,
+.dumbbell-weight {
+  background: #ddd;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.dumbbell-weight {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.results ul {
+  list-style: none;
+  padding: 0;
+}
+
+.results li {
+  padding: 5px 0;
+}
+
+.results li:hover {
+  cursor: pointer;
+  color: #007bff;
+}
+
+.results li.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-group input {
+  width: 60px;
+  text-align: center;
+}
+
+.input-group button {
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  text-align: center;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.input-group button:hover {
+  background-color: #0056b3;
+}
+
+.input-group button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
