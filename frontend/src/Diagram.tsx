@@ -6,6 +6,11 @@ interface DiagramProps {
   dumbbellWeight: number;
 }
 
+// Helper function to format weights
+const formatWeight = (weight: number) => {
+  return weight % 1 === 0 ? weight.toString() : weight.toFixed(1);
+};
+
 const Diagram: React.FC<DiagramProps> = ({
   barWeight,
   fixedWeight,
@@ -15,11 +20,15 @@ const Diagram: React.FC<DiagramProps> = ({
     <div className="diagram">
       <h3>Barbell Diagram</h3>
       <div className="bar">
-        <div className="dumbbell-weight">{dumbbellWeight.toFixed(1)} lbs</div>
-        <div className="weight">{fixedWeight} lbs</div>
-        <div className="bar-center">Bar ({barWeight} lbs)</div>
-        <div className="weight">{fixedWeight} lbs</div>
-        <div className="dumbbell-weight">{dumbbellWeight.toFixed(1)} lbs</div>
+        <div className="dumbbell-weight">
+          {formatWeight(dumbbellWeight)} lbs
+        </div>
+        <div className="weight">{formatWeight(fixedWeight)} lbs</div>
+        <div className="bar-center">Bar ({formatWeight(barWeight)} lbs)</div>
+        <div className="weight">{formatWeight(fixedWeight)} lbs</div>
+        <div className="dumbbell-weight">
+          {formatWeight(dumbbellWeight)} lbs
+        </div>
       </div>
     </div>
   );

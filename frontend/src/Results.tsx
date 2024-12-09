@@ -17,11 +17,17 @@ const Results: React.FC<ResultsProps> = ({
   const barWeight = 45;
   const fixedTotal = fixedWeight * 2; // Fixed weight on both sides
 
-  // Ensure weights are multiples of 5 lbs
-  const roundToNearestFive = (weight: number) => Math.round(weight / 5) * 5;
+  // Helper function to round down to the nearest 2.5
+  const roundDownToNearestTwoPointFive = (value: number) =>
+    Math.floor(value / 2.5) * 2.5;
 
-  const remainingWeight = roundToNearestFive(targetWeight - barWeight - fixedTotal);
-  const dumbbellWeight = remainingWeight / 2;
+  // Helper function to round to the nearest 5 lbs
+  const roundToNearestFive = (value: number) => Math.round(value / 5) * 5;
+
+  // Helper function to format numbers
+  const formatWeight = (weight: number) => {
+    return weight % 1 === 0 ? weight.toString() : weight.toFixed(1);
+  };
 
   const calculateSets = () => {
     const steps = [];
@@ -33,7 +39,7 @@ const Results: React.FC<ResultsProps> = ({
     if (warmupSets > 0) {
       steps.push({
         label: `Warmup Set 1`,
-        weight: validFirstWarmup,
+        totalWeight: validFirstWarmup,
       });
     }
 
@@ -43,14 +49,14 @@ const Results: React.FC<ResultsProps> = ({
       const warmupWeight = roundToNearestFive(validFirstWarmup + increment * i);
       steps.push({
         label: `Warmup Set ${i + 1}`,
-        weight: warmupWeight,
+        totalWeight: warmupWeight,
       });
     }
 
     // Add the target set
     steps.push({
       label: "Normal Set",
-      weight: targetWeight,
+      totalWeight: targetWeight,
     });
 
     return steps;
@@ -65,29 +71,36 @@ const Results: React.FC<ResultsProps> = ({
 
   return (
     <div className="results">
-      <h2>Results</h2>
       <h3>Sets:</h3>
       <ul>
-        {sets.map((set, index) => (
-          <li
-            key={index}
-            onClick={() => handleSetClick(index)}
-            style={{
-              cursor: "pointer",
-              textDecoration: activeSetIndex === index ? "underline" : "none",
-              fontWeight: activeSetIndex === index ? "bold" : "normal",
-            }}
-          >
-            {set.label}: {set.weight.toFixed(1)} lbs
-          </li>
-        ))}
+        {sets.map((set, index) => {
+          const remainingWeight = set.totalWeight - barWeight - fixedTotal;
+          const dumbbellWeight = roundDownToNearestTwoPointFive(
+            remainingWeight / 2
+          );
+
+          return (
+            <li
+              key={index}
+              onClick={() => handleSetClick(index)}
+              style={{
+                cursor: "pointer",
+                textDecoration: activeSetIndex === index ? "underline" : "none",
+                fontWeight: activeSetIndex === index ? "bold" : "normal",
+              }}
+            >
+              {set.label}: {formatWeight(set.totalWeight)} lbs (
+              {formatWeight(dumbbellWeight)} lbs)
+            </li>
+          );
+        })}
       </ul>
 
       <Diagram
         barWeight={barWeight}
         fixedWeight={fixedWeight}
-        dumbbellWeight={roundToNearestFive(
-          (sets[activeSetIndex].weight - barWeight - fixedTotal) / 2
+        dumbbellWeight={roundDownToNearestTwoPointFive(
+          (sets[activeSetIndex].totalWeight - barWeight - fixedTotal) / 2
         )}
       />
     </div>
