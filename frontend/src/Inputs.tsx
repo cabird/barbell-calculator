@@ -11,6 +11,8 @@ interface InputsProps {
   setWarmupSets: (sets: number) => void;
   firstWarmupWeight: number;
   setFirstWarmupWeight: (weight: number) => void;
+  barWeight: number;
+  setBarWeight: (weight: number) => void;
 }
 
 const Inputs: React.FC<InputsProps> = ({
@@ -22,6 +24,8 @@ const Inputs: React.FC<InputsProps> = ({
   setWarmupSets,
   firstWarmupWeight,
   setFirstWarmupWeight,
+  barWeight,
+  setBarWeight,
 }) => {
   const roundToNearestFive = (value: number) => Math.round(value / 5) * 5;
 
@@ -53,24 +57,7 @@ const Inputs: React.FC<InputsProps> = ({
           </button>
         </div>
       </div>
-      <div>
-        <label>Fixed Weight on Each Side (lbs):</label>
-        <div className="input-group">
-          <button
-            onClick={() => handleDecrement(setFixedWeight, fixedWeight)}
-            aria-label="Decrease Fixed Weight"
-          >
-            <FontAwesomeIcon icon={faMinus} />
-          </button>
-          <span className="weight-display">{fixedWeight} lbs</span>
-          <button
-            onClick={() => handleIncrement(setFixedWeight, fixedWeight)}
-            aria-label="Increase Fixed Weight"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
-        </div>
-      </div>
+      
       <div>
         <label>Warmup Sets:</label>
         <input
@@ -99,6 +86,42 @@ const Inputs: React.FC<InputsProps> = ({
               handleIncrement(setFirstWarmupWeight, firstWarmupWeight)
             }
             aria-label="Increase First Warmup Set Weight"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </div>
+      </div>
+      <div>
+        <label>Bar Weight (lbs):</label>
+        <div className="input-group">
+          <button
+            onClick={() => handleDecrement(setBarWeight, barWeight)}
+            aria-label="Decrease Bar Weight"
+          >
+            <FontAwesomeIcon icon={faMinus} />
+          </button>
+          <span className="weight-display">{barWeight} lbs</span>
+          <button
+            onClick={() => handleIncrement(setBarWeight, barWeight)}
+            aria-label="Increase Bar Weight"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </div>
+      </div>
+      <div>
+        <label>Fixed Weight on Each Side (lbs):</label>
+        <div className="input-group">
+          <button
+            onClick={() => handleDecrement(setFixedWeight, fixedWeight)}
+            aria-label="Decrease Fixed Weight"
+          >
+            <FontAwesomeIcon icon={faMinus} />
+          </button>
+          <span className="weight-display">{fixedWeight} lbs</span>
+          <button
+            onClick={() => handleIncrement(setFixedWeight, fixedWeight)}
+            aria-label="Increase Fixed Weight"
           >
             <FontAwesomeIcon icon={faPlus} />
           </button>

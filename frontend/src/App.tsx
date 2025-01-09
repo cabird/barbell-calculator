@@ -22,12 +22,17 @@ const App: React.FC = () => {
     const saved = localStorage.getItem("firstWarmupWeight");
     return saved ? parseFloat(saved) : 65;
   });
+  const [barWeight, setBarWeight] = useState<number>(() => {
+    const saved = localStorage.getItem("barWeight");
+    return saved ? parseFloat(saved) : 45;
+  });
 
   const resetInputs = () => {
     setTargetWeight(135);
     setFixedWeight(10);
     setWarmupSets(3);
     setFirstWarmupWeight(65);
+    setBarWeight(45);
     localStorage.clear();
   };
 
@@ -36,7 +41,8 @@ const App: React.FC = () => {
     localStorage.setItem("fixedWeight", fixedWeight.toString());
     localStorage.setItem("warmupSets", warmupSets.toString());
     localStorage.setItem("firstWarmupWeight", firstWarmupWeight.toString());
-  }, [targetWeight, fixedWeight, warmupSets, firstWarmupWeight]);
+    localStorage.setItem("barWeight", barWeight.toString());
+  }, [targetWeight, fixedWeight, warmupSets, firstWarmupWeight, barWeight]);
 
   return (
     <div className="app">
@@ -50,12 +56,15 @@ const App: React.FC = () => {
         setWarmupSets={setWarmupSets}
         firstWarmupWeight={firstWarmupWeight}
         setFirstWarmupWeight={setFirstWarmupWeight}
+        barWeight={barWeight}
+        setBarWeight={setBarWeight}
       />
       <Results
         targetWeight={targetWeight}
         fixedWeight={fixedWeight}
         warmupSets={warmupSets}
         firstWarmupWeight={firstWarmupWeight}
+        barWeight={barWeight}
       />
       <button className="reset-button" onClick={resetInputs}>
         <FontAwesomeIcon icon={faTrash} /> Reset

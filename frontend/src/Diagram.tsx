@@ -8,6 +8,8 @@ interface DiagramProps {
 
 // Helper function to format weights
 const formatWeight = (weight: number) => {
+  // ensure that the weight is not undefined
+  if (weight === undefined) return "0";
   return weight % 1 === 0 ? weight.toString() : weight.toFixed(1);
 };
 

@@ -6,6 +6,7 @@ interface ResultsProps {
   fixedWeight: number;
   warmupSets: number;
   firstWarmupWeight: number;
+  barWeight: number;
 }
 
 const Results: React.FC<ResultsProps> = ({
@@ -13,8 +14,8 @@ const Results: React.FC<ResultsProps> = ({
   fixedWeight,
   warmupSets,
   firstWarmupWeight,
+  barWeight,
 }) => {
-  const barWeight = 45;
   const fixedTotal = fixedWeight * 2; // Fixed weight on both sides
 
   // Helper function to round down to the nearest 2.5
